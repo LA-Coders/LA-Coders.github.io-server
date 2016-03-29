@@ -5,8 +5,8 @@ var favicon = require('serve-favicon');
 var app = express();
 
 app.use(bodyParser.json());
-
 app.use(bodyParser.urlencoded({ extended: false }));
+var port = process.env.PORT || 9001;
 app.use(favicon(__dirname + '/public/fav/favicon.ico'));
 app.use("/", express.static("./public"));
 
@@ -36,6 +36,6 @@ app.post("/api/slack/signup", function(request, response) {
 });
 
 
-app.listen(9001, function() {
+app.listen(port, function() {
   console.log("App listening on port 9001");
 });
