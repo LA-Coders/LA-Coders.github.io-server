@@ -6,13 +6,12 @@ var app = express();
 
 app.use(bodyParser.json());
 
-app.get("/", function(request, response) {
-  response.send('Vegeta, what does the scouter say???');
-});
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use("/", express.static("./public"));
 
 app.post("/api/slack/signup", function(request, response) {
   console.log(request.body);
-  request.post(
+  http.post(
     {
       url: 'https://la-coders.slack.com/api/users.admin.invite',
       form: {
@@ -21,14 +20,13 @@ app.post("/api/slack/signup", function(request, response) {
         set_active: true
       }
     },function(err, response) {
-        if(err) {
+        if(!response.body.ok) {
           console.log(err);
         } else {
-          console.log(response, ' it was a success');
+          console.log(response.body, ' it was a success');
         }
       }
   );
-
 });
 
 
