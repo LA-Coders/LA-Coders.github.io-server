@@ -7,13 +7,12 @@ var app = express();
 app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(favicon(__dirname + '/public/fav/favicon.ico'));
+app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use("/", express.static("./public"));
 
 if(!process.env.PRODUCTION) {
   process.env.SLACK_TOKEN = require("./secrets/slack.js");
 }
-
 
 app.post("/api/slack/signup", function(request, response) {
   console.log(request.body);
